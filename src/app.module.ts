@@ -13,6 +13,7 @@ import { ChatRoomsService } from './services/chat-rooms.service';
 import { MessagesService } from './services/messages.service';
 import { UsersController } from './controllers/users.controller';
 import { ChatRoomsController } from './controllers/chat-rooms.controller';
+import { MessagesController } from './controllers/messages.controller';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { ChatRoomsController } from './controllers/chat-rooms.controller';
     ChatRoomsModule,
     MessagesModule,
   ],
-  controllers: [AppController, UsersController, ChatRoomsController],
+  controllers: [AppController, UsersController, ChatRoomsController, MessagesController],
   providers: [AppService, UsersService, ChatRoomsService, MessagesService],
 })
 export class AppModule {}
