@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './models/user';
 import { ChatRoom } from './models/chat-room';
 import { Message } from './models/message';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { Message } from './models/message';
       entities: [User, ChatRoom, Message],
       synchronize: true, // NOTE: Set to false in production
     }),
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
