@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { User } from './user';
+import { ChatRoom } from './chat-room';
 
 @Entity()
 export class Message {
@@ -10,4 +12,10 @@ export class Message {
 
   @Column({ type: 'timestamp' })
   timestamp: Date;
+
+  @ManyToOne(() => User, (user) => user.messages)
+  user: User;
+
+  @ManyToOne(() => ChatRoom, (chatRoom) => chatRoom.messages)
+  chatRoom: ChatRoom;
 }
