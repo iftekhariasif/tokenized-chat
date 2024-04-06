@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { JwtService } from '@nestjs/jwt';
-import { User } from '../models/user';
+import { User } from '../models/user'; // Adjust path as necessary
 
 @Injectable()
 export class AuthService {
@@ -12,23 +12,53 @@ export class AuthService {
     private usersRepository: Repository<User>,
   ) {}
 
-  async validateUser(nickname: string): Promise<User> {
-    // Check if user exists in the database
+  async login(
+    nickname: string,
+  ): Promise<{ access_token: string; refresh_token: string }> {
     let user = await this.usersRepository.findOne({ where: { nickname } });
 
     if (!user) {
-      // If not, create a new user entity
       user = this.usersRepository.create({ nickname });
       await this.usersRepository.save(user);
+    } else {
+      throw new ConflictException('Nickname already in use.');
     }
 
-    return user;
+    const payload = { nickname: user.nickname, sub: user.id };
+    const access_token = this.jwtService.sign(payload, {
+      secret: process.env.JWT_ACCESS_TOKEN_SECRET,
+      expiresIn: '15m',
+    });
+    const refresh_token = this.jwtService.sign(payload, {
+      secret: process.env.JWT_REFRESH_TOKEN_SECRET,
+      expiresIn: '7d',
+    });
+
+    return { access_token, refresh_token };
   }
 
-  async login(user: any) {
-    const payload = { nickname: user.nickname, sub: user.id };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+  async refreshToken(refresh_token: string): Promise<{ access_token: string }> {
+    try {
+      const payload = this.jwtService.verify(refresh_token, {
+        secret: process.env.JWT_REFRESH_TOKEN_SECRET,
+      });
+      const user = await this.usersRepository.findOne({
+        where: { id: payload.sub },
+      });
+
+      if (!user) {
+        throw new ConflictException('User not found.');
+      }
+
+      const newPayload = { nickname: user.nickname, sub: user.id };
+      const access_token = this.jwtService.sign(newPayload, {
+        secret: process.env.JWT_ACCESS_TOKEN_SECRET,
+        expiresIn: '15m',
+      });
+
+      return { access_token };
+    } catch (error) {
+      throw new ConflictException('Refresh token is invalid or expired.');
+    }
   }
 }

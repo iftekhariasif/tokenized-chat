@@ -1,5 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from './auth.service'; // Adjust path as necessary
 
 @Controller('auth')
 export class AuthController {
@@ -7,10 +7,11 @@ export class AuthController {
 
   @Post('login')
   async login(@Body('nickname') nickname: string) {
-    const user = await this.authService.validateUser(nickname);
-    if (!user) {
-      return 'User not found';
-    }
-    return this.authService.login(user);
+    return this.authService.login(nickname);
+  }
+
+  @Post('refresh')
+  async refresh(@Body('refresh_token') refresh_token: string) {
+    return this.authService.refreshToken(refresh_token);
   }
 }
