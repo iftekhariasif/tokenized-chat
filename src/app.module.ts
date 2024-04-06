@@ -14,6 +14,7 @@ import { MessagesService } from './services/messages.service';
 import { UsersController } from './controllers/users.controller';
 import { ChatRoomsController } from './controllers/chat-rooms.controller';
 import { MessagesController } from './controllers/messages.controller';
+import { ChatGateway } from './gateways/chat.gateway';
 
 @Module({
   imports: [
@@ -31,7 +32,18 @@ import { MessagesController } from './controllers/messages.controller';
     ChatRoomsModule,
     MessagesModule,
   ],
-  controllers: [AppController, UsersController, ChatRoomsController, MessagesController],
-  providers: [AppService, UsersService, ChatRoomsService, MessagesService],
+  controllers: [
+    AppController,
+    UsersController,
+    ChatRoomsController,
+    MessagesController,
+  ],
+  providers: [
+    AppService,
+    UsersService,
+    ChatRoomsService,
+    MessagesService,
+    ChatGateway,
+  ],
 })
 export class AppModule {}
