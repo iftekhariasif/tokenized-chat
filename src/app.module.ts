@@ -11,6 +11,7 @@ import { MessagesModule } from './modules/messages/messages.module';
 import { UsersService } from './services/users.service';
 import { ChatRoomsService } from './services/chat-rooms.service';
 import { MessagesService } from './services/messages.service';
+import { UsersController } from './controllers/users.controller';
 
 @Module({
   imports: [
@@ -28,7 +29,7 @@ import { MessagesService } from './services/messages.service';
     ChatRoomsModule,
     MessagesModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, UsersController],
   providers: [AppService, UsersService, ChatRoomsService, MessagesService],
 })
 export class AppModule {}
