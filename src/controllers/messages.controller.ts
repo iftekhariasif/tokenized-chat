@@ -6,6 +6,7 @@ import {
   Body,
   Param,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { MessagesService } from '../services/messages.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -17,17 +18,14 @@ export class MessagesController {
   @Post()
   @UseGuards(JwtAuthGuard)
   createMessage(
-    @Body()
-    createMessageDto: {
-      userId: number;
-      chatRoomId: number;
-      content: string;
-    },
+    @Body('chatRoomId') chatRoomId: number,
+    @Body('content') content: string,
+    @Request() req,
   ) {
     return this.messagesService.createMessage(
-      createMessageDto.userId,
-      createMessageDto.chatRoomId,
-      createMessageDto.content,
+      req.user.userId,
+      chatRoomId,
+      content,
     );
   }
 
@@ -39,17 +37,14 @@ export class MessagesController {
   @Patch('/edit-last')
   @UseGuards(JwtAuthGuard)
   editLastMessage(
-    @Body()
-    editMessageDto: {
-      userId: number;
-      chatRoomId: number;
-      newContent: string;
-    },
+    @Body('chatRoomId') chatRoomId: number,
+    @Body('newContent') newContent: string,
+    @Request() req,
   ) {
     return this.messagesService.editLastMessage(
-      editMessageDto.userId,
-      editMessageDto.chatRoomId,
-      editMessageDto.newContent,
+      req.user.userId,
+      chatRoomId,
+      newContent,
     );
   }
 }
