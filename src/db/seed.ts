@@ -1,10 +1,10 @@
 import { config } from 'dotenv';
+config(); // Make sure this is at the very top
+
 import { DataSource } from 'typeorm';
 import { User } from '../models/user';
 import { ChatRoom } from '../models/chat-room';
 import { Message } from '../models/message';
-
-config();
 
 const dataSource = new DataSource({
   type: 'postgres',
