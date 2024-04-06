@@ -6,6 +6,7 @@ import { User } from './models/user';
 import { ChatRoom } from './models/chat-room';
 import { Message } from './models/message';
 import { UsersModule } from './modules/users/users.module';
+import { ChatRoomsModule } from './modules/chat-rooms/chat-rooms.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UsersModule } from './modules/users/users.module';
       synchronize: true, // NOTE: Set to false in production
     }),
     UsersModule,
+    ChatRoomsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
