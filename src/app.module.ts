@@ -12,6 +12,7 @@ import { UsersService } from './services/users.service';
 import { ChatRoomsService } from './services/chat-rooms.service';
 import { MessagesService } from './services/messages.service';
 import { UsersController } from './controllers/users.controller';
+import { ChatRoomsController } from './controllers/chat-rooms.controller';
 
 @Module({
   imports: [
@@ -29,7 +30,7 @@ import { UsersController } from './controllers/users.controller';
     ChatRoomsModule,
     MessagesModule,
   ],
-  controllers: [AppController, UsersController],
+  controllers: [AppController, UsersController, ChatRoomsController],
   providers: [AppService, UsersService, ChatRoomsService, MessagesService],
 })
 export class AppModule {}
