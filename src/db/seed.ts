@@ -1,15 +1,18 @@
+import { config } from 'dotenv';
 import { DataSource } from 'typeorm';
 import { User } from '../models/user';
 import { ChatRoom } from '../models/chat-room';
 import { Message } from '../models/message';
 
+config();
+
 const dataSource = new DataSource({
   type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'chatadmin',
-  password: 'chatpassword',
-  database: 'hello-chat',
+  host: process.env.DB_HOST,
+  port: parseInt(process.env.DB_PORT, 10),
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
   entities: [User, ChatRoom, Message],
   synchronize: false,
 });

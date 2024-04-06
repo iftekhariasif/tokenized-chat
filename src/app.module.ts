@@ -1,3 +1,4 @@
+import { config } from 'dotenv';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -16,15 +17,16 @@ import { ChatRoomsController } from './controllers/chat-rooms.controller';
 import { MessagesController } from './controllers/messages.controller';
 import { ChatGateway } from './gateways/chat.gateway';
 
+config();
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'chatadmin',
-      password: 'chatpassword',
-      database: 'hello-chat',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT, 10),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
       entities: [User, ChatRoom, Message],
       synchronize: true, // NOTE: Set to false in production
     }),
