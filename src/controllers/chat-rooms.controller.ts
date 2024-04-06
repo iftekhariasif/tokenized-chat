@@ -17,7 +17,7 @@ export class ChatRoomsController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  createChatRoom(@Body('name') name: string, @Request() req): Promise<any> {
+  createChatRoom(@Body('name') name: string, @Request() req) {
     return this.chatRoomsService.createChatRoom(name, req.user.userId);
   }
 
@@ -33,7 +33,7 @@ export class ChatRoomsController {
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
-  deleteChatRoom(@Param('id') id: number, @Request() req): Promise<void> {
+  deleteChatRoom(@Param('id') id: number, @Request() req) {
     return this.chatRoomsService.deleteChatRoom(id, req.user.userId);
   }
 }
