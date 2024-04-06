@@ -12,10 +12,12 @@ export class ChatGateway {
   @WebSocketServer() server: Server;
 
   @SubscribeMessage('chat')
+  @SubscribeMessage('chat')
   handleMessage(
     @MessageBody() message: string,
     @ConnectedSocket() client: Socket,
   ): void {
-    this.server.emit('chat', message); // Broadcasts the message to all connected clients
+    console.log(`Message from client ${client.id}: ${message}`);
+    this.server.emit('chat', message);
   }
 }
