@@ -8,6 +8,7 @@ import { Message } from './models/message';
 import { UsersModule } from './modules/users/users.module';
 import { ChatRoomsModule } from './modules/chat-rooms/chat-rooms.module';
 import { MessagesModule } from './modules/messages/messages.module';
+import { UsersService } from './services/users.service';
 
 @Module({
   imports: [
@@ -26,6 +27,6 @@ import { MessagesModule } from './modules/messages/messages.module';
     MessagesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, UsersService],
 })
 export class AppModule {}
