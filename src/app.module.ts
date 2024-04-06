@@ -16,7 +16,7 @@ import { UsersController } from './controllers/users.controller';
 import { ChatRoomsController } from './controllers/chat-rooms.controller';
 import { MessagesController } from './controllers/messages.controller';
 import { ChatGateway } from './gateways/chat.gateway';
-import { AuthModule } from './modules/auth.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { AuthService } from './services/auth.service';
 import { AuthController } from './controllers/auth.controller';
 
