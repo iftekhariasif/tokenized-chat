@@ -2,6 +2,7 @@ import { config } from 'dotenv';
 config(); // Make sure this is at the very top
 
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './models/user';
 import { ChatRoom } from './models/chat-room';
@@ -16,6 +17,9 @@ import { ChatGateway } from './gateways/chat.gateway';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
