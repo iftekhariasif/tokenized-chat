@@ -1,25 +1,39 @@
-import React, { useState } from 'react';
-import { AuthService } from './services/AuthService';
+import React, { useState, useEffect } from 'react';
 import Login from './components/Login';
+import { AuthService }  from './services/AuthService';
 
-function App() {
-  const [user, setUser] = useState(null);
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLogin = async (nickname) => {
-    try {
-      const { access_token } = await AuthService.login(nickname);
-      setUser({ nickname, access_token });
-      // Optionally, save the token in localStorage or context
-    } catch (error) {
-      console.error('Login failed:', error);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
     }
+  }, []);
+
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    AuthService.logout();
+    setIsLoggedIn(false);
   };
 
   return (
-    <div className="App">
-      {!user ? <Login onLogin={handleLogin} /> : <div>Welcome, {user.nickname}!</div>}
+    <div>
+      {!isLoggedIn ? (
+        <Login onLoginSuccess={handleLoginSuccess} />
+      ) : (
+        <div>
+          <p>Welcome, user!</p>
+          <button onClick={handleLogout}>Logout</button>
+          {/* Place for chat components or other features */}
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default App;

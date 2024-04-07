@@ -1,27 +1,35 @@
 import React, { useState } from 'react';
+import { AuthService } from '../services/AuthService';
 
-function Login({ onLogin }) {
+const Login = ({ onLoginSuccess }) => {
   const [nickname, setNickname] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    onLogin(nickname);
+    try {
+      await AuthService.login(nickname);
+      onLoginSuccess();
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit}>
+    <div>
+      <form onSubmit={handleLogin}>
         <input
           type="text"
-          placeholder="Enter your nickname"
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
+          placeholder="Enter your nickname"
           required
         />
         <button type="submit">Login</button>
+        {error && <p>{error}</p>}
       </form>
     </div>
   );
-}
+};
 
 export default Login;
