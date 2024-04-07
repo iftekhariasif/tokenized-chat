@@ -7,18 +7,12 @@ The Tokenized Chat App streamlines real-time messaging in a secure and scalable 
 - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
-- [Usage](#usage)
+- [Database Schema](#database-schemas)
 - [API Reference](#api-reference)
-- [Development](#development)
-    - [Setup](#setup)
-    - [Running the Application](#running-the-application)
 - [Deployment](#deployment)
-- [Infrastructure](#infrastructure)
-- [Database Schemas](#database-schemas)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
-
 
 ### Requirement Definitions
 
@@ -83,3 +77,30 @@ This section outlines the steps to get the Tokenized Chat App running on your lo
     ```
 
 Follow these steps to set up and start using the Tokenized Chat App on your development machine.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details. This means anyone is free to use, modify, distribute, and contribute back to the project under the same license.
+
+## Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repository and create a pull request. You can also simply open an issue with the tag "enhancement".
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+Don't forget to give the project a star! Thanks again!
+
+## Contact
+
+For any inquiries or further information about the project, feel free to connect with us:
+
+- **GitHub**: [https://github.com/iftekhariasif](https://github.com/iftekhariasif)
+- **LinkedIn**: [https://www.linkedin.com/in/iftekhariasif/](https://www.linkedin.com/in/iftekhariasif/)
+- **X**: [https://x.com/iftekhariasif](https://x.com/iftekhariasif)
+
