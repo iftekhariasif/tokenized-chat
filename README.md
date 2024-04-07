@@ -78,6 +78,71 @@ This section outlines the steps to get the Tokenized Chat App running on your lo
 
 Follow these steps to set up and start using the Tokenized Chat App on your development machine.
 
+## API Reference
+
+Explore the API endpoints provided by the Tokenized Chat App, designed for seamless user authentication, chat room interactions, and messaging functionalities. Here's a step-by-step guide through the user journey:
+
+### User Authentication
+
+- **Login/Create User**: Start by logging in or creating a new user profile with a unique nickname.
+
+    ```
+    POST /auth/login
+    Body: { "nickname": "SpiderMan" }
+    ```
+
+    Upon successful login, you'll receive an access token. Include this token in the Authorization header of subsequent requests needing authentication.
+
+### Chat Rooms
+
+- **Create a Chat Room**: Authenticated users can initiate new chat rooms.
+
+    ```
+    POST /chat-rooms
+    Headers: Authorization: Bearer <YourAccessToken>
+    Body: { "name": "Avengers HQ" }
+    ```
+
+- **List Chat Rooms**: Discover all the chat rooms available.
+
+    ```
+    GET /chat-rooms
+    ```
+
+- **Join a Chat Room**: Interact with any chat room by participating in discussions or viewing messages. (Note: Joining a chat room is conceptual; users interact by sending or receiving messages.)
+
+- **Delete a Chat Room**: Creators can dissolve their chat rooms.
+
+    ```
+    DELETE /chat-rooms/:chatRoomId
+    Headers: Authorization: Bearer <YourAccessToken>
+    ```
+
+### Messaging
+
+- **Send a Message**: Contribute to the chat room's dialogue.
+
+    ```
+    POST /messages
+    Headers: Authorization: Bearer <YourAccessToken>
+    Body: { "chatRoomId": "1", "content": "Let's save the world!" }
+    ```
+
+- **Edit the Last Message**: Modify your most recent message, provided it remains the latest contribution.
+
+    ```
+    PATCH /messages/edit-last
+    Headers: Authorization: Bearer <YourAccessToken>
+    Body: { "chatRoomId": "1", "newContent": "Time to assemble the team!" }
+    ```
+
+- **List Messages in a Chat Room**: Retrieve the dialogue history of a specific chat room.
+
+    ```
+    GET /messages/:chatRoomId
+    ```
+
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details. This means anyone is free to use, modify, distribute, and contribute back to the project under the same license.
