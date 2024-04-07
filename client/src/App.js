@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { AuthService } from './services/AuthService';
+import Login from './components/Login';
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const handleLogin = async (nickname) => {
+    try {
+      const { access_token } = await AuthService.login(nickname);
+      setUser({ nickname, access_token });
+      // Optionally, save the token in localStorage or context
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {!user ? <Login onLogin={handleLogin} /> : <div>Welcome, {user.nickname}!</div>}
     </div>
   );
 }
